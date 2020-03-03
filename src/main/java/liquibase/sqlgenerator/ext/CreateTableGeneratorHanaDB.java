@@ -67,7 +67,7 @@ public class CreateTableGeneratorHanaDB extends CreateTableGenerator {
                 LogFactory.getLogger().warning(database.getShortName()+" does not support autoincrement columns as request for "+(database.escapeTableName(statement.getCatalogName(), statement.getSchemaName(), statement.getTableName())));
             }
 
-            if (statement.getNotNullColumns().contains(column)) {
+            if (statement.getNotNullColumns().containsKey(column)) {   // TODO : Verify this!!!
                 buffer.append(" NOT NULL");
             }
 

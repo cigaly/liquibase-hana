@@ -23,8 +23,6 @@ public class HanaDBDatabase extends AbstractJdbcDatabase {
     public HanaDBDatabase() {
         super();
 
-        super.quotingStartCharacter ="\"";
-        super.quotingEndCharacter="\"";
         setObjectQuotingStrategy(ObjectQuotingStrategy.QUOTE_ALL_OBJECTS);
         unquotedObjectsAreUppercased = true;
         
@@ -386,4 +384,5 @@ public class HanaDBDatabase extends AbstractJdbcDatabase {
     public boolean supportsCatalogs() {
         return false;
     }
+
 }

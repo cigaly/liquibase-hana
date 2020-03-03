@@ -8,12 +8,7 @@ import liquibase.changelog.RanChangeSet;
 import liquibase.database.Database;
 import liquibase.database.DatabaseConnection;
 import liquibase.database.ObjectQuotingStrategy;
-import liquibase.exception.DatabaseException;
-import liquibase.exception.DatabaseHistoryException;
-import liquibase.exception.DateParseException;
-import liquibase.exception.LiquibaseException;
-import liquibase.exception.RollbackImpossibleException;
-import liquibase.exception.StatementNotSupportedOnDatabaseException;
+import liquibase.exception.*;
 import liquibase.structure.DatabaseObject;
 import liquibase.sql.visitor.SqlVisitor;
 import liquibase.statement.DatabaseFunction;
@@ -629,4 +624,44 @@ public class MockDatabase implements Database {
     public String unescapeDataTypeString(String dataTypeString) {
         return dataTypeString;
     }
+
+    /* TODO : BEGIN Verify this!!! */
+
+    @Override public Integer getDefaultScaleForNativeDataType(final String s) {
+        return null;
+    }
+
+    @Override public Integer getFetchSize() {
+        return null;
+    }
+
+    @Override public int getMaxFractionalDigitsForTimestamp() {
+        return 0;
+    }
+
+    @Override public int getDefaultFractionalDigitsForTimestamp() {
+        return 0;
+    }
+
+    @Override public CatalogAndSchema.CatalogAndSchemaCase getSchemaAndCatalogCase() {
+        return null;
+    }
+
+    @Override public boolean supportsNotNullConstraintNames() {
+        return false;
+    }
+
+    @Override public boolean supportsBatchUpdates() throws DatabaseException {
+        return false;
+    }
+
+    @Override public boolean requiresExplicitNullForColumns() {
+        return false;
+    }
+
+    @Override public ValidationErrors validate() {
+        return null;
+    }
+
+    /* TODO : END Verify this!!! */
 }

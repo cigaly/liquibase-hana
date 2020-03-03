@@ -451,7 +451,7 @@ public abstract class AbstractIntegrationTest {
             CompareControl compareControl = new CompareControl();
             DiffOutputControl diffOutputControl = new DiffOutputControl();
             File tempFile = File.createTempFile("liquibase-test", ".xml");
-            FileUtil.deleteOnExit(tempFile);
+            tempFile.deleteOnExit();
             if (outputCsv) {
                 diffOutputControl.setDataDir(new File(tempFile.getParentFile(), "liquibase-data").getCanonicalPath().replaceFirst("\\w:",""));
             }
@@ -497,7 +497,7 @@ public abstract class AbstractIntegrationTest {
             DiffResult emptyDiffResult = DiffGeneratorFactory.getInstance().compare(emptySnapshot, migratedSnapshot, new CompareControl());
             output = new FileOutputStream(tempFile);
             try {
-                new DiffToChangeLog(emptyDiffResult, new DiffOutputControl(true, true, true)).print(new PrintStream(output));
+                new DiffToChangeLog(emptyDiffResult, new DiffOutputControl(true, true, true, null)).print(new PrintStream(output)); // TODO : Verify this!!!
                 output.flush();
             } finally {
                 output.close();
@@ -766,7 +766,7 @@ public abstract class AbstractIntegrationTest {
         liquibase = createLiquibase(completeChangeLog);
         liquibase.generateDocumentation(outputDir.getAbsolutePath(), this.contexts);
 
-        FileUtil.deleteOnExit(outputDir);
+        outputDir.deleteOnExit();
     }
 
 
@@ -912,7 +912,7 @@ public abstract class AbstractIntegrationTest {
 
         DiffResult diffResult = DiffGeneratorFactory.getInstance().compare(database, database, new CompareControl());
 
-        DiffToChangeLog changeLogWriter = new DiffToChangeLog(diffResult, new DiffOutputControl(false, false, false));
+        DiffToChangeLog changeLogWriter = new DiffToChangeLog(diffResult, new DiffOutputControl(false, false, false, null));    // TODO : Verify this!!!
         assertEquals(0, changeLogWriter.generateChangeSets().size());
     }
 
